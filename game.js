@@ -58,7 +58,7 @@
     });
 
     var player = (function () {
-        var gravity = 0.5;
+        var gravity = 0.001;
         var velocity = {
             x: 0,
             y: 0
@@ -73,27 +73,27 @@
             })
             .color("red")
             .bind("EnterFrame", function (e) {
-                this.x += velocity.x/2;
-                this.y += velocity.y/2;
+                this.x += velocity.x*e.dt;
+                this.y += velocity.y*e.dt+0.5*gravity*e.dt*e.dt;
                 if (this.y >= 510) {
                     velocity.y = 0;
                     velocity.x = 0;
                     this.y = 510;
                 } else {
-                    velocity.y += gravity;
+                    velocity.y += gravity*e.dt;
                 }
-                this.x += velocity.x/2;
-                this.y += velocity.y/2;
             })
             .Jump(function (target) {
-                var y_diff;
+                var yDiff, apexTiming;
 
                 if (target.y < this.y) {
-                    y_diff = this.y - target.y;
-                    velocity.y = -Math.sqrt(2 * gravity * y_diff);
-                    this.y -= 1;
+                    this.y -= 0.01;
+                    yDiff = this.y + this.h - target.y;
+                    velocity.y = -Math.sqrt(2 * gravity * yDiff);
 
-                    velocity.x = (target.x - this.x)/30;
+                    apexTiming = Math.sqrt(2*yDiff/gravity);
+
+                    velocity.x = (target.x - (this.x + this.w/2))/apexTiming;
                 }
             });
     }());
