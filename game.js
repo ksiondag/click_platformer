@@ -1,7 +1,6 @@
 /*jslint browser: true */
 /*global Crafty: false */
-(function () {
-    "use strict";
+(function () { "use strict";
     var currentTime, newSecond;
 
     currentTime = function () {
@@ -107,8 +106,8 @@
         })
         .bind("MouseDown", function (e) {
             player.jump({
-                x: e.x || e.realX,
-                y: e.y || e.realY
+                x: e.realX,
+                y: e.realY
             });
         });
 }());
