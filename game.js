@@ -106,6 +106,9 @@
             h:600
         })
         .bind("MouseDown", function (e) {
-            player.jump( {x: e.x, y: e.y} );
+            player.jump({
+                x: e.x || e.realX,
+                y: e.y || e.realY
+            });
         });
 }());
