@@ -81,12 +81,19 @@
                 } else {
                     velocity.y += gravity*e.dt;
                 }
+
+                if (this.x >= 540) {
+                    velocity.x = 0;
+                    this.x = 540;
+                } else if (this.x <= 0 ) {
+                    velocity.x = 0;
+                    this.x = 0;
+                }
             })
             .Jump(function (target) {
                 var yDiff, apexTiming;
 
-                if (target.y < this.y) {
-                    this.y -= 0.01;
+                if (target.y < this.y + this.h) {
                     yDiff = this.y + this.h - target.y;
                     velocity.y = -Math.sqrt(2 * gravity * yDiff);
 
